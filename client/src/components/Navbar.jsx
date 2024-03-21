@@ -1,12 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faCartShopping, faTimes } from '@fortawesome/free-solid-svg-icons';
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, json, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/auth';
 
 const Navbar = () => {
   const [auth, setAuth] = useAuth();
+  const user = JSON.parse(auth.user) || 0;
+  const Isadmin = user.role === 1;
+
+  console.log(Isadmin)
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   const handleLogout = () => {
     setAuth({
       ...auth,
@@ -16,13 +21,14 @@ const Navbar = () => {
     localStorage.removeItem('auth');
     navigate('/')
   };
-
-  const [open, setOpen] = useState(false);
-
-
-  const handleDashboard = ()=>{
-    navigate('/admin')
+  const HandleAddtocart = ()=>{
+    navigate('/cart')
   }
+
+  const Onmouseenter = ()=>{
+
+  }
+  const Onmouseleave = ()=>{}
 
   return (
     <nav className='p-5 bg-white shadow md:flex md:items-center md:justify-center w-full'>
@@ -65,28 +71,32 @@ const Navbar = () => {
 
         <Link to={!auth.user ? '/myaccounts' : '/admin'}>
         {
-
-
            !auth.user ? (
-          
           <button className='bg-cyan-500 text-white font-sans duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded'>
           Get Started
         </button> ) : (
-
-          <div className='flex flex-col md:flex-row md:gap-4 gap-2 '>
-  <button onClick={handleLogout} className='bg-cyan-500 text-white font-sans duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded'>
+          <div className='flex flex-col md:flex-row md:gap-4 gap-3'>
+  <button onClick={handleLogout} className='bg-cyan-500 text-white font-sans duration-500 hover:bg-cyan-500 rounded px-3 py-2 w-36'>
           Logout
         </button>
-        <button onClick={handleDashboard} className='bg-cyan-500 text-white font-sans duration-500 px-6 py-2 mx-4 hover:bg-cyan-500 rounded'>
-          Dashboard
-        </button>
+    { !Isadmin ? ( <Link to={'/user'}> <button className='bg-cyan-500 text-white font-sans duration-500 hover:bg-cyan-500 rounded'>
+          Buyer Dashboard
+        </button>   </Link> ) : (
+
+<Link to={'/admin'}> <button className='bg-cyan-500 text-white font-sans duration-500 px-2 py-2 w-36  hover:bg-cyan-500 rounded'>
+          Seller Dashboard
+        </button> </Link>
+        
+        )}
+        
+        
           </div>
-        
-        
         )
         }
       </Link>
-        
+      { !Isadmin && ( <div className='pl-4'>
+       <button onMouseLeave={Onmouseleave} onMouseEnter={Onmouseenter} onClick={HandleAddtocart} className='text-3xl'><FontAwesomeIcon icon={faCartShopping} /></button>
+        </div> )}
       </ul>
     </nav>
   );

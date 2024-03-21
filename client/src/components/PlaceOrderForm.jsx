@@ -86,7 +86,7 @@ function PlaceOrderForm() {
    
     try {
       const response = await axios.post(
-        "https://ecomninja.onrender.com/api/v1/order/placeorder",
+        "http://localhost:4000/api/v1/order/placeorder",
         orderData,
         {
           headers: {
@@ -102,7 +102,7 @@ function PlaceOrderForm() {
     }
   };
   return (
-    <div className={`flex justify-center items-center flex-col`}>
+    <div className={`flex justify-center items-center flex-col p-4 md:p-0`}>
       <div className={`w-full md:w-1/2 ml-2 mr-2 mt-8 mb-4`}>
        {!paymentid ? ( <form onSubmit={handleSubmit}>
           <h2 className="text-xl font-bold mb-4">Customer Details</h2>

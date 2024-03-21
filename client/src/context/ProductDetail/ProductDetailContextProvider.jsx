@@ -9,7 +9,7 @@ const ProductDetailContextProvider = ({children}) => {
     useEffect(() => {
         const getproduct = async () => {
           try {
-            const response = await axios.get(`https://ecomninja.onrender.com/api/v1/product/addproducts/${slug}`);
+            const response = await axios.get(`http://localhost:4000/api/v1/product/addproducts/${slug}`);
             setpro(response.data);
           } catch (error) {
             console.error(error);
@@ -20,7 +20,7 @@ const ProductDetailContextProvider = ({children}) => {
       useEffect(() => {
         const fetchImage = async () => {
           try {
-            const response = await axios.get(`https://ecomninja.onrender.com/api/v1/product/addproducts/img/${slug}`, {
+            const response = await axios.get(`http://localhost:4000/api/v1/product/addproducts/img/${slug}`, {
               responseType: 'blob',
             });
             const blobUrl = URL.createObjectURL(response.data);

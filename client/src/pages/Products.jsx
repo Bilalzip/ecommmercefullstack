@@ -16,7 +16,7 @@ const Products = () => {
         data.append('Product', userSearch);
 
         const response = await axios.post(
-          'https://ecomninja.onrender.com/api/v1/products',
+          'http://localhost:4000/api/v1/products',
           data,
           {
             headers: {

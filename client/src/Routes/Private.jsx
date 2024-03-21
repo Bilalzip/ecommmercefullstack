@@ -9,7 +9,7 @@ export default function Private() {
 
     useEffect(() => {
         const authCheck = async ()=>{
-            const res = await axios.get('https://ecomninja.onrender.com/api/v1/auth/user' , {
+            const res = await axios.get('http://localhost:4000/api/v1/auth/user' , {
                 headers:{
                     Authorization: auth?.token
                 }

@@ -10,7 +10,7 @@ const Homecategory = () => {
 
   const getProducts = async () => {
     try {
-      const response = await axios.get('https://ecomninja.onrender.com/api/v1/product/addproducts');
+      const response = await axios.get('http://localhost:4000/api/v1/product/addproducts');
       setProduct(response.data);
       setloader(!loader)
     } catch (error) {
@@ -57,7 +57,10 @@ const Homecategory = () => {
                       />
                     </Link>
                     <div className="p-4">
-                      <h2 className="text-xl font-semibold">{item.productName}</h2>
+                     
+                      <Link to={`/category/${item.category}/${item.slug}`}>
+                      <h2 className="text-xl font-semibold overflow-hidden whitespace-nowrap">{item.productName.length > 20 ? item.productName.slice(0, 20) + '...' : item.productName}</h2>
+                    </Link>
                       <p className="text-gray-600">{item.brand}</p>
                       <p className="text-gray-600">Category: {item.category}</p>
                       <div className="flex justify-between items-center mt-2">

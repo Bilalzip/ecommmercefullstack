@@ -9,6 +9,7 @@ import categoryRoute from './routes/categoryRoute.js'
 import PaymentinfoRoute from './routes/PaymentinfoRoute.js'
 import FetchProductsRoute from './routes/FetchProductsRoute.js'
 import contactRoute from './routes/contactRoute.js'
+import statsRoute from "./routes/statsRoute.js"
 dotenv.config(); // Load environme nt variables from .env
 const app = express();
 const port = process.env.PORT;
@@ -22,6 +23,7 @@ app.get('/', (req, res) =>{
   res.send("Welcome")
 })
 app.use('/api/v1/auth', authRoute);
+app.use("/api/v1/stats" , statsRoute)
 app.use('/api/v1/contact',contactRoute);
 app.use('/api/v1/category', categoryRoute);
 app.use('/api/v1/product', productRoute);

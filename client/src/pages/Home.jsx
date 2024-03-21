@@ -5,7 +5,7 @@ import { Audio } from 'react-loader-spinner'
 
 const Home = () => {
   return (
-    <div> 
+    <div className=''> 
     <HeroSection/>
     <Homecategory/>
     </div>

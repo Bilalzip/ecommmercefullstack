@@ -1,30 +1,59 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from './Sidebar';
 import { useAuth } from '../context/auth';
 import axios from 'axios';
 import toast from 'react-hot-toast'
 const AdminProfile = () => {
+
   const NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="dauwgr7yd"
   const [auth, setAuth] = useAuth();
   const userObject = JSON.parse(auth.user);
   const [takeimage , settakeimage] = useState(null);
   const [formData, setFormData] = useState({
-    username: userObject.username || "",
-    fullname: userObject.fullname || '',
-    phone: '',
-    email: userObject.email || '',
+    username:userObject.username || "",
+    fullname: userObject.fullname ||'',
+    phone: "",
+    email: userObject.email ||'',
     website: '',
     image: "",
   });
   
+  useEffect(() => {
+    const getProfileImage = async () => {
+      try {
+        const response = await axios.post("http://localhost:4000/api/v1/auth/profile", {
+          username: userObject.username
+        });
+        console.log(response.data); 
+       setTimeout(() => {
+        if (response.data.image === ""){
+          toast.message("Your image has not been saved , please try again")
+        }
+       }, 3000);
+        // Update only the image and website fields, keep the rest as is
+        setFormData(prevData => ({
+          ...prevData,
+          image: response.data.image,
+          website: response.data.website,
+          phone: response.data.phone
+        }));
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      }
+    };
+  
+    getProfileImage();
+  }, []);
+  
+
   const handleInputChange = (e) => {
-    const {value , name } = e.target
+    const { value, name } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-    console.log(formData)
   };
+  
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     settakeimage(file);
@@ -47,25 +76,36 @@ const AdminProfile = () => {
 
   const handleProfileChange = async (e) => {
     e.preventDefault();
-    const imageData = new FormData();
-    imageData.append("file", takeimage);
-    imageData.append('upload_preset', 'realstate');
-
-    if (takeimage !== null && takeimage){
-      const imageUrl = await Cloudinary(imageData);
-      setFormData((prevData) => ({
-        ...prevData,
-        image: imageUrl,
-      }));
+  
+    if (takeimage !== null && takeimage) {
+      const imageData = new FormData();
+      imageData.append("file", takeimage);
+      imageData.append('upload_preset', 'realstate');
+  
+      try {
+        const imageUrl = await Cloudinary(imageData);
+        setFormData((prevData) => ({
+          ...prevData,
+          image: imageUrl,
+        }));
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        return; // Stop further execution if image upload fails
+      }
     }
-    const response = await axios.post("https://ecomninja.onrender.com/api/v1/auth/profile/edit", formData, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    setTimeout(() => {
+  
+    try {
+      console.log(formData)
+      const response = await axios.post("http://localhost:4000/api/v1/auth/profile/edit", formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       toast.success(response.data.message);
-    }, 3000);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      toast.error("Failed to update profile");
+    }
   };
   
   return (
@@ -73,17 +113,17 @@ const AdminProfile = () => {
       <Sidebar />
       <div className='mx-auto mt-24'>
         <div>
-        <div className='w-36 h-36 rounded-full overflow-hidden hover:bg-black'>
+        <div className='w-36 h-36 rounded-full overflow-hidden'>
             <label htmlFor='imageUpload' className='cursor-pointer'>
               {takeimage ? (
-                <img
-                  src={URL.createObjectURL(takeimage)}
-                  alt='Profile'
-                  className='w-full h-full object-cover'
-                />
+               <img
+               src={takeimage ? URL.createObjectURL(takeimage) : formData.image || userObject.image || '/src/assets/admin-icon.png'}
+               alt='Profile'
+               className='w-full h-full object-cover'
+             />             
               ) : (
                 <img
-                  src={userObject.image}
+                  src={formData.image || '/src/assets/admin-icon.png'}
                   alt=''
                   className='w-full h-full object-cover'
                 />

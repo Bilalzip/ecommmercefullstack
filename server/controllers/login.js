@@ -4,16 +4,12 @@
          export const loginController = async (req, res) => {
            const { username, password } = req.body;
            if (!username || !password) {
-             return res.json({
-              message: "Invalid username or password"
-             })
+              throw new Error("Invalid username or password")
            } else {
              try {
                const user = await UserModel.findOne({ username });
                if (!user) {
-                 return res.json({
-                  message: "User not found"
-                 });
+                throw new Error("User not found");
                } else {
                 const matchpass = await Comparepass(password, user.password);
                 if (matchpass==true){
@@ -23,9 +19,8 @@
                 }
                }
              } catch (error) {
-               res.status(500).send("Internal server error");
+               res.status(500).send("Internal server error" , error);
              }
            }
          };
-         
          export default loginController;

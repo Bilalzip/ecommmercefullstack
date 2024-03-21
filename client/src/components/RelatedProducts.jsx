@@ -12,7 +12,7 @@ const RelatedProducts = ({name}) => {
   const [data , setdata] = useState([])
   useEffect(() => {
     const FetchProductsCategoryWise = async () => {
-        const response = await axios.get(`https://ecomninja.onrender.com/api/v1/category/${category}`);
+        const response = await axios.get(`http://localhost:4000/api/v1/category/${category}`);
         console.log(response.data.products);
         setdata(response.data.products)
     }

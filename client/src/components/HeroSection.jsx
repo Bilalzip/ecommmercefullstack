@@ -4,7 +4,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const HeroSection = () => {
   return (
-    <div className='h-96 bg-cover bg-[url("https://images.pexels.com/photos/2131784/pexels-photo-2131784.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")] flex justify-center items-center flex-col gap-6 '>
+    <div className='h-96 bg-cover bg-[url("https://images.pexels.com/photos/2131784/pexels-photo-2131784.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")] flex justify-center items-center flex-col gap-6 p-10 m-1 md:m-0 md:p-2'>
   {/* // bg-[#C6C3D6]  */}
 <h1 className='text-4xl font-sans font-bold text-white mb-8 '>Discover the Best Agricultural products</h1>
 

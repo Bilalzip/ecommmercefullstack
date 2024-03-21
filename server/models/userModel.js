@@ -33,6 +33,9 @@ const userSchema = new mongoose.Schema({
         },
         website:{
           type: String
+        },
+        phone:{
+          type: Number
         }
       
 }, {timestamps:true})

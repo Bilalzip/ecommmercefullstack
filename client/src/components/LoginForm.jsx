@@ -20,17 +20,17 @@ function LoginForm() {
   };
   const sendData = async (data) => {
     try {
-      const response = await axios.post('https://ecomninja.onrender.com/api/v1/auth/login', data, {
+      const response = await axios.post('http://localhost:4000/api/v1/auth/login', data, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      console.log(response)
            setAuth({
             ...auth,
             token: response.data.token ,
             user: response.data.user
     })
+    console.log(response.data)
     localStorage.setItem("auth" , JSON.stringify(response.data));
     toast.success(response.data.message);
     navigate("/admin");

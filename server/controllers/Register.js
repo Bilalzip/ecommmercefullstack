@@ -3,7 +3,6 @@ import UserModel from "../models/userModel.js";
 import JWT from 'jsonwebtoken'
 
 export const Register = async (req,res)=>{
-
     try{
         const {email ,password , fullname , username } = req.body;
         
@@ -26,14 +25,14 @@ export const Register = async (req,res)=>{
           const existingUser = await UserModel.findOne({email});
 
         if (existingUser) {
-            res.status(400).json("This email is already in use, please register with a different email");
+            res.status(400).json("This email is already in use");
         } else {
             const Hasedpassword = await Hashpass(password);
             const RegisterUser = await new UserModel({ email, password: Hasedpassword, fullname, username }).save();
             res.json({ user: RegisterUser });
         }
     } catch (err) {
-        res.json(err)
+        res.json(err);
     }
 }
 

@@ -91,7 +91,7 @@ const ProductForm = () => {
       };
 
       const response = await axios.post(
-        "https://ecomninja.onrender.com/api/v1/product/addproducts",
+        "http://localhost:4000/api/v1/product/addproducts",
         productData
       );
 
@@ -107,7 +107,7 @@ const ProductForm = () => {
 
   const getCategories = async () => {
     try {
-      const response = await axios.get('https://ecomninja.onrender.com/api/v1/category/addcategory');
+      const response = await axios.get('http://localhost:4000/api/v1/category/addcategory');
       setCategories(response.data);
     } catch (error) {
       console.error('Error fetching categories:', error);

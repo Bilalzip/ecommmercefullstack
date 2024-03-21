@@ -22,7 +22,7 @@ const CreatePayment = async (orderId)=>{
                 email: true,
             },
             reminder_enable : true,
-            callback_url : `https://remarkable-alpaca-eaae2e.netlify.app/payments/${orderId}`,
+            callback_url : `http://localhost:5173/payments/${orderId}`,
             callback_method : 'get'
         };
         try {

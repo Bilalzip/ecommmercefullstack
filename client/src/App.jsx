@@ -18,6 +18,8 @@ import CategoryProducts from './components/CategoryProducts';
 import toast, { Toaster } from 'react-hot-toast';
 import AddtoCart from './components/AddtoCart';
 import Contact from './components/froms/Contact';
+import PrivateBuyer from './Routes/PrivateBuyer';
+import Buyer from './pages/buyer';
 
 function App() {
   return (
@@ -26,6 +28,9 @@ function App() {
    <Toaster position='top-center' /> 
    <Navbar/>
    <Routes>
+    <Route path='/user' element={<PrivateBuyer/>} >
+       <Route path='' element={<Buyer/>} />
+    </Route>
     <Route path = '/contact-us' element = {<Contact/>} />
     <Route  path='/cart' element={<AddtoCart/>}/>
     <Route path ='/category/:category' element= {<CategoryProducts/>} />

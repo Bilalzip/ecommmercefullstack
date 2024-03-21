@@ -3,7 +3,7 @@ import React from 'react'
 const PaymentGateway = ({id}) => {
 
     const handlepayment = async(e)=>{
-        const response = await axios.post(`https://ecomninja.onrender.com/api/v1/payments/${id}`)
+        const response = await axios.post(`http://localhost:4000/api/v1/payments/${id}`)
       const url = response.data.payment_link_url;
       console.log(url);
       window.open(`${url}`, '_blank');

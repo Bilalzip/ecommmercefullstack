@@ -24,17 +24,15 @@ function RegistrationForm() {
   };
   const sendData = async (data) => {
     try {
-      const response = await axios.post('https://ecomninja.onrender.com/api/v1/auth/register', data, {
+      const response = await axios.post('http://localhost:4000/api/v1/auth/register', data, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
       toast.success("Successfully registered");
-      navigate("/admin");
-      
+      navigate("/");
     } catch (error) {
-      console.error('Axios request error:', error);
-      throw error;
+     toast.error("An error occured ")
     }
   };
   const handleSubmit = async (e) => {

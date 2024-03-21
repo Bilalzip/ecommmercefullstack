@@ -9,7 +9,7 @@ const Contact = () => {
       });
 
       const submitForm = async ()=>{
-        const response = await axios.post('https://ecomninja.onrender.com/api/v1/contact', formData);
+        const response = await axios.post('http://localhost:4000/api/v1/contact', formData);
         console.log(response);
         toast.success(response.data.message);
     }

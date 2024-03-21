@@ -60,9 +60,8 @@ const CartPage = () => {
   }, [cartItems, placeOrder]);
 
   return (
-    <div className="container mx-auto my-10 h-screen">
+    <div className="container p-4 md:p-2 h-screen ">
       <h2 className="text-3xl font-bold mb-6">Shopping Cart</h2>
-
       {placeOrder.size === 0 ? (
         <p className="text-gray-600">Your cart is empty.</p>
       ) : (

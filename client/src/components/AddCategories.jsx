@@ -10,7 +10,7 @@ const AddCategories = () => {
 
   const senddata = async (data) => {
     const response = await axios.post(
-      'https://ecomninja.onrender.com/api/v1/category/addcategory',
+      'http://localhost:4000/api/v1/category/addcategory',
       data,
       {
         headers: {
@@ -24,7 +24,7 @@ const AddCategories = () => {
   const getCategories = async () => {
     try {
       const response = await axios.get(
-        'https://ecomninja.onrender.com/api/v1/category/addcategory'
+        'http://localhost:4000/api/v1/category/addcategory'
       );
       setgetcategory(response.data);
     } catch (error) {
@@ -43,7 +43,7 @@ const AddCategories = () => {
 
   const deletecategory = async (categoryName) => {
     const response = axios.post(
-      'https://ecomninja.onrender.com/api/v1/category/delete',
+      'http://localhost:4000/api/v1/category/delete',
       { category: categoryName },
       {
         headers: {

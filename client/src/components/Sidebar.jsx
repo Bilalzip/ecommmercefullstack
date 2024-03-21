@@ -9,7 +9,7 @@ const Sidebar = () => {
     { title: 'Dashboard', icon: faHome, link: '/admin/' },
     { title: 'Profile', icon: faUser, link: '/admin/profile' },
     { title: 'Orders', icon: faShoppingCart, link: '/admin/orders' },
-    { title: 'Products', icon: faBox, link: '/admin/addproducts', },
+    { title: 'Add Products', icon: faBox, link: '/admin/addproducts', },
     { title: 'Categories', icon: faList, link: '/admin/addcategories',  },
   ];
 
